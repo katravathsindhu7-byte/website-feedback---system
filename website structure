@@ -1,0 +1,12 @@
+website-feedback-system/
+│
+├── app.py
+├── requirements.txt
+├── README.md
+│
+├── templates/
+│     ├── feedback.html
+│     ├── otp.html
+│
+├── static/
+│     └── style.css
