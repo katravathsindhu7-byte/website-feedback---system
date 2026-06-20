@@ -2,7 +2,9 @@
 <html>
 <head>
     <title>Feedback System</title>
-    <link rel="stylesheet" href="/static/style.css">
+
+    <!-- CSS LINK (IMPORTANT FIX) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
@@ -12,7 +14,6 @@
     <h2>Feedback Form</h2>
 
     <input id="email" placeholder="Enter Email">
-
     <input id="message" placeholder="Enter Feedback">
 
     <button onclick="submitFeedback()">Submit</button>
@@ -26,16 +27,23 @@ function submitFeedback() {
 
     fetch("/submit", {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: {
+            "Content-Type": "application/json"
+        },
         body: JSON.stringify({
-            email: document.getElementById("email").value
+            email: document.getElementById("email").value,
+            message: document.getElementById("message").value
         })
     })
     .then(res => res.json())
     .then(data => {
-        document.getElementById("msg").innerText = data.message;
-        window.location.href = "/otp";
+        alert(data.message);
+    })
+    .catch(err => {
+        alert("Error connecting to server");
+        console.log(err);
     });
+
 }
 </script>
 
