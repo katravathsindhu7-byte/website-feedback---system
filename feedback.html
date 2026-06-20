@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feedback System</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Feedback Form</h2>
+
+    <input id="email" placeholder="Enter Email">
+
+    <input id="message" placeholder="Enter Feedback">
+
+    <button onclick="submitFeedback()">Submit</button>
+
+    <p id="msg"></p>
+
+</div>
+
+<script>
+function submitFeedback() {
+
+    fetch("/submit", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            email: document.getElementById("email").value
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("msg").innerText = data.message;
+        window.location.href = "/otp";
+    });
+}
+</script>
+
+</body>
+</html>
