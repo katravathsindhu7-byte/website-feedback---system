@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>OTP Verify</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>OTP Verification</title>
+
+    <!-- CSS LINK (IMPORTANT FIX) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
@@ -14,7 +16,7 @@
     <input id="email" placeholder="Enter Email">
     <input id="otp" placeholder="Enter OTP">
 
-    <button onclick="verifyOTP()">Verify</button>
+    <button onclick="verifyOTP()">Verify OTP</button>
 
     <p id="msg"></p>
 
@@ -25,7 +27,9 @@ function verifyOTP() {
 
     fetch("/verify", {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: {
+            "Content-Type": "application/json"
+        },
         body: JSON.stringify({
             email: document.getElementById("email").value,
             otp: document.getElementById("otp").value
@@ -34,7 +38,12 @@ function verifyOTP() {
     .then(res => res.json())
     .then(data => {
         document.getElementById("msg").innerText = data.message;
+    })
+    .catch(err => {
+        alert("Error verifying OTP");
+        console.log(err);
     });
+
 }
 </script>
 
